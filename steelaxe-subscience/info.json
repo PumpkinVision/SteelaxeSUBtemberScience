@@ -1,0 +1,9 @@
+{
+  "name": "steelaxe-subscience",
+  "version": "0.1.0",
+  "title": "Steelaxe SUBtember Science - Sept 2021",
+  "author": "PumpkinVision",
+  "factorio_version": "1.1",
+  "dependencies": ["base >= 1.1"],
+  "description": "This mod adds new science packs. Science unlock requries 100 each of the previous sciences, including vanilla sciences. The new pack production recipes are random."
+}
