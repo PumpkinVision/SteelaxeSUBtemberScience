@@ -49,19 +49,19 @@ data:extend({
 local diff_master = 
 {
   easy = {
-    maxIngIndex = 106,
+    maxIngIndex = 94,
     ings = {
       "A", "A", "B"
     },
   },
   med = {
-    maxIngIndex = 152,
+    maxIngIndex = 140,
     ings = {
       "A", "A", "B", "B"
     }
   },
   hard = {
-    maxIngIndex = 174,
+    maxIngIndex = 162,
     ings = {
       "A", "A", "B", "B"
     }
@@ -70,6 +70,7 @@ local diff_master =
 
 -- get list of ingredients
 -- these are most items in the game, but some very expensive items (such as the rocket silo and spidertron) have been excluded
+-- some very cheap items such as iron ore and copper cable have also been excluded
 -- the items are ordered into easy, medium, and hard segments
 local ingredient_list = require("ingredients")
 
