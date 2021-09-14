@@ -7,6 +7,16 @@
       "label": "build",
       "type": "shell",
       "command": "7z a steelaxe-subscience_0.1.0.zip steelaxe-subscience",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn":["delete zip"]
+    },
+    {
+      "label": "delete zip",
+      "type": "shell",
+      "command": "if (Test-Path -Path steelaxe-subscience_0.1.0.zip -PathType Leaf) { Remove-Item steelaxe-subscience_0.1.0.zip }",
       "group": "build"
     }
   ]
