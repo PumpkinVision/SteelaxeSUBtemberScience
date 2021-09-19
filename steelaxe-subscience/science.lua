@@ -8,23 +8,27 @@ data:extend({
   }
 })
 
+local easyMaxIndex = 94
+local medMaxIndex = 140
+local hardMaxIndex = 162
+
 -- define recipe templates for each level of difficulty
 local diff_master = 
 {
   easy = {
-    maxIngIndex = 94,
+    maxIngIndex = easyMaxIndex,
     ings = {
       "A", "A", "B"
     },
   },
   med = {
-    maxIngIndex = 140,
+    maxIngIndex = medMaxIndex,
     ings = {
       "A", "A", "B", "B"
     }
   },
   hard = {
-    maxIngIndex = 162,
+    maxIngIndex = hardMaxIndex,
     ings = {
       "A", "A", "B", "B"
     }
