@@ -1,40 +1,3 @@
---[[
-  Recipe randomization plan:
-  Assuming we have at least 3 new packs, divide the pack sequence into thirds.
-  Recipe randomization is used through, but for the first third of the sequence, the difficulty ceiling is low and the ingredient count is 3.
-  For the second third of the sequence, the difficulty ceiling is raised and the ingrdient count is 4.
-  For the final third of the sequence, the difficulty ceiling is raised further. The ingredient count remains 4.
-
-  qty calculation
-
-  two types of ingredients:
-  A ingredient = 90% chance that qty will be between 1 and 4; 10% chance that qty will be between 5 and 8
-  B ingredient = uniform probability distribution between 5 and 20
-  The goal is to create recipes that resembles the recipe for purple science, which requires 1 electric furnace, 1 prod module, and 30 rail.
-  
-  There is nothing in the recipe generation process to guarantee that the higher qty ingredient will be easier than the lower qty ingredient.
-  Ingredient difficulty is managed by having three tiers of ingredients: easy, medium, and hard. I have eyeballed the difficulty of different ingredients.
-  I arranged the ingredients into a range from easy to hard. The random ingredient uses the random method to pick an index between 1 and a specified maximum value.
-  If easy, our ingredient selector ranges from 1 to <max index for easy>. If medium, our ingredient selector ranges
-  from 1 to <max index for medium>. And if hard, our ingredient selector ranges from 1 to <max index for hard>.
-
-  recipe difficulty levels:
-  easy (first third of the science packs)
-    individual ingredient complexity - easy range
-    2 A ingredients
-    1 B ingredient
-  med (second third of the science packs)
-    individual ingredient complexity - easy or med range
-    2 A ingredients
-    2 B ingredients
-  hard (final third of the science packs)
-    individual ingredient complexity - easy, med, or hard range
-    2 A ingredients
-    2 B ingredients
-    (Although the ingredient pattern is the same as medium, the addition of hard ingredients, together with the fact tha we still have to make
-    all previous science packs for each round of research, should provide a significant, but hopefully sane, additional degree of difficulty.)
-]]
-
 -- add subgroup so science recipes start on new row in crafting menu
 data:extend({
   {
@@ -143,18 +106,15 @@ function randomRecipe(diff)
   return finalRet, recipeCategory
 end
 
+-- get the number of subscribers per tech goal for tech flavor text
+local subsPerTech = settings.startup["steelaxe-subscience-subspertech"].value
+
 -- get the number of packs to produce
 local numPacks = settings.startup["steelaxe-subscience-new-pack-count"].value
 
 -- define default thresholds
-local medDiffThresh = 3
-local hardDiffThresh = 3
-
--- if we have at least 3 packs, divide into thirds
-if (numPacks >= 3) then
-  medDiffThresh = math.floor(numPacks/3)
-  hardDiffThresh = 2 * medDiffThresh
-end
+local medDiffThresh = settings.startup["steelaxe-subscience-first-medium"].value
+local hardDiffThresh = settings.startup["steelaxe-subscience-first-hard"].value
 
 -- initial difficulty is easy
 local diff = "easy"
@@ -198,7 +158,7 @@ do
     icon_size = 64,
     name = item.name,
     localised_name = item.localised_name,
-    localised_description = string.format("Add to goals after reaching %d subscribers.", i * 5),
+    localised_description = string.format("Add to goals at %d subscribers.", i * subsPerTech),
     order = "z[" .. string.format("%4d", i) .. "]",
     type = "technology",
     unit = {
