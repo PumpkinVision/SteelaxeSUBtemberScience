@@ -79,6 +79,12 @@ local fluidList =
 ["steam"] = true
 }
 
+-- list of never stackable ingredients
+local nonstackable =
+{
+  ["modular-armor"] = true
+}
+
 -- build a recipe for a specified difficulty threshold (easy, medium, or hard)
 function randomRecipe(diff)
   local ingList = {}
@@ -96,15 +102,28 @@ function randomRecipe(diff)
 
   local finalRet = {}
   local recipeCategory = "crafting"
+  local amount_of_fluid_ingreds = 0
   for k, v in pairs(dedupeIngList) do
     local ing
     if (fluidList[k]) then
-      recipeCategory = "crafting-with-fluid"
+      amount_of_fluid_ingreds = amount_of_fluid_ingreds + 1
       ing = { amount = v, name = k, type = "fluid" }
     else
-      ing = { k, v }
+      if (nonstackable[k]) then
+        ing = { k, 1 }
+      else
+        ing = { k, v }
+      end
     end
     finalRet[#finalRet + 1] = ing
+  end
+
+  if amount_of_fluid_ingreds == 1 then
+    recipeCategory = "crafting-with-fluid"
+  elseif amount_of_fluid_ingreds == 2 then
+    recipeCategory = "chemistry"
+  elseif amount_of_fluid_ingreds > 2 then
+    error("Sorry but recipes with more than 2 fluid ingredients aren't supported yet.")
   end
 
   return finalRet, recipeCategory
