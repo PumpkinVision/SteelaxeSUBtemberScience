@@ -14,3 +14,11 @@ for key, val in pairs(data.raw.lab) do
         end
     end
 end
+
+for i=1, numPacks do
+  table.insert(data.raw.module["productivity-module"].limitation, "subscience" .. i)
+end
+
+-- if any other mods wanted these to be different: Sorry, I'm lazy - Bilka
+data.raw.module["productivity-module-2"].limitation = table.deepcopy(data.raw.module["productivity-module"].limitation)
+data.raw.module["productivity-module-3"].limitation = table.deepcopy(data.raw.module["productivity-module"].limitation)
