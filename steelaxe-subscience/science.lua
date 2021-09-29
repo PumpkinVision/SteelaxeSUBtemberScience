@@ -85,6 +85,30 @@ local nonstackable =
   ["modular-armor"] = true
 }
 
+function hueToRGB(hue)
+  local hue_sector = math.floor(hue / 60)
+  local hue_sector_offset = (hue / 60) - hue_sector
+
+  local value = 1
+  local p = 0
+  local q = 1 - hue_sector_offset
+  local t = hue_sector_offset
+
+  if hue_sector == 0 then
+    return {value, t, p}
+  elseif hue_sector == 1 then
+    return {q, value, p}
+  elseif hue_sector == 2 then
+    return {p, value, t}
+  elseif hue_sector == 3 then
+    return {p, q, value}
+  elseif hue_sector == 4 then
+    return {t, p, value}
+  elseif hue_sector == 5 then
+  	return {value, p, q}
+  end
+end
+
 -- build a recipe for a specified difficulty threshold (easy, medium, or hard)
 function randomRecipe(diff)
   local ingList = {}
@@ -157,8 +181,8 @@ do
   item.localised_name = "Sub Science " .. i
   item.order = "z[" .. string.format("%4d", i) .. "]"
   item.subgroup = "steelaxe-subscience-pack"
-  item.icon = "__steelaxe-subscience__/graphics/icons/sub-science-pack64x64_" .. i .. ".png"
-  item.icon_size = 64
+  item.icon = nil
+  item.icons = { {icon = "__steelaxe-subscience__/graphics/icons/sub-science-pack64x64_" .. i .. ".png", tint = hueToRGB((i * 2) % 360)} }
 
   -- build recipe to build item
   local recipe = table.deepcopy(data.raw["recipe"]["automation-science-pack"])
@@ -177,7 +201,7 @@ do
         type = "unlock-recipe"
       }
     },
-    icon = "__steelaxe-subscience__/graphics/icons/sub-science-pack64x64_" .. i .. ".png",
+    icons = { {icon = "__steelaxe-subscience__/graphics/icons/sub-science-pack64x64_" .. i .. ".png", tint = hueToRGB((i * 2) % 360)} },
     icon_size = 64,
     name = item.name,
     localised_name = item.localised_name,
