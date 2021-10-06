@@ -82,7 +82,8 @@ local fluidList =
 -- list of never stackable ingredients
 local nonstackable =
 {
-  ["modular-armor"] = true
+  ["modular-armor"] = true,
+  ["spidertron-remote"] = true
 }
 
 function hueToRGB(hue)
