@@ -183,7 +183,7 @@ do
   item.order = "z[" .. string.format("%4d", i) .. "]"
   item.subgroup = "steelaxe-subscience-pack"
   item.icon = nil
-  item.icons = { {icon = "__steelaxe-subscience__/graphics/icons/sub-science-pack64x64_" .. i .. ".png", tint = hueToRGB((i * 2) % 360)} }
+  item.icons = { {icon = "__steelaxe-subscience__/graphics/icons/sub-science-pack64x64_" .. i .. ".png", tint = hueToRGB((i * 2) % 360), icon_size = 64} }
 
   -- build recipe to build item
   local recipe = table.deepcopy(data.raw["recipe"]["automation-science-pack"])
@@ -202,7 +202,7 @@ do
         type = "unlock-recipe"
       }
     },
-    icons = { {icon = "__steelaxe-subscience__/graphics/icons/sub-science-pack64x64_" .. i .. ".png", tint = hueToRGB((i * 2) % 360)} },
+    icons = { {icon = "__steelaxe-subscience__/graphics/icons/sub-science-pack64x64_" .. i .. ".png", tint = hueToRGB((i * 2) % 360), icon_size = 64} },
     icon_size = 64,
     name = item.name,
     localised_name = item.localised_name,
